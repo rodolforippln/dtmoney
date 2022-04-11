@@ -1,17 +1,77 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-ReactDOM.render(
+import { createServer, Model } from 'miragejs';
+
+import App from "./App";
+
+createServer({
+  models: {
+    transaction: Model,
+  },
+
+  seeds(server) {
+    server.db.loadData({
+      transactions: [
+        {
+          id: 1,
+          title: 'Freelance Web',
+          type: 'widthdraw',
+          category: 'Dev',
+          amount: 6000,
+          createdAt: new Date('2022-02-12 09:00:00'),          
+        },
+        {
+          id: 2,
+          title: 'Alugel',
+          type: 'deposit',
+          category: 'Casa',
+          amount: 1100,
+          createdAt: new Date('2022-02-14 11:00:00'),          
+        },
+        {
+          id: 3,
+          title: 'Freelance Web 1',
+          type: 'deposit',
+          category: 'Dev 1',
+          amount: 2000,
+          createdAt: new Date('2022-03-12 09:00:00'),          
+        },
+        {
+          id: 4,
+          title: 'Freelance Web 2',
+          type: 'widthdraw',
+          category: 'Dev 1',
+          amount: 100,
+          createdAt: new Date('2022-03-12 09:00:00'),          
+        }
+      ]
+    })
+  },
+
+  routes() {
+    this.namespace = 'api';
+
+    this.get('/transactions', () => {
+      return this.schema.all('transaction')
+    })
+
+    this.post('/transactions', (schema, request) => {
+      const data = JSON.parse(request.requestBody)
+
+      return schema.create('transaction', data);
+    })
+  }
+})
+
+
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
+
