@@ -1,5 +1,26 @@
+import { useTransations } from '../../hooks/useTransactions';
+
 import { Container } from "./styles";
 export default function Summary() {
+
+    const { transactions } = useTransations();
+
+    const summary = transactions.reduce((acc, transaction) => {
+        if (transaction.type === 'deposit') {
+            acc.deposits += transaction.amount;
+            acc.total += transaction.amount;
+        } else {
+            acc.widthdraws += transaction.amount;
+            acc.total -= transaction.amount;
+        }
+
+        return acc;
+    }, {
+        deposits: 0,
+        widthdraws: 0,
+        total: 0
+    })
+    
     return (
         <Container>
             <div>
@@ -11,7 +32,13 @@ export default function Summary() {
                     <path d="M16 21.3333L16 10.6667" stroke="#33CC95" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </header>
-                <strong>R$ 1000.00</strong>
+                <strong>
+                    {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(summary.deposits)}
+                    
+                </strong>
             </div>
 
             <div>
@@ -23,7 +50,14 @@ export default function Summary() {
                     <path d="M16 10.6667L16 21.3333" stroke="#E62E4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </header>
-                <strong>- R$ 500.00</strong>
+
+                <strong>
+                    - {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(summary.widthdraws)}
+                    
+                </strong>
             </div>
 
             <div className="background-green">
@@ -34,7 +68,13 @@ export default function Summary() {
                     <path d="M22.6667 6.66667H12.6667C11.429 6.66667 10.242 7.15834 9.36684 8.03351C8.49167 8.90868 8 10.0957 8 11.3333C8 12.571 8.49167 13.758 9.36684 14.6332C10.242 15.5083 11.429 16 12.6667 16H19.3333C20.571 16 21.758 16.4917 22.6332 17.3668C23.5083 18.242 24 19.429 24 20.6667C24 21.9043 23.5083 23.0913 22.6332 23.9665C21.758 24.8417 20.571 25.3333 19.3333 25.3333H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                 </header>
-                <strong>R$ 1000.00</strong>
+                <strong>
+                    {new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(summary.total)}
+                    
+                </strong>
             </div>
 
 

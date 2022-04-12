@@ -15,35 +15,19 @@ createServer({
       transactions: [
         {
           id: 1,
-          title: 'Freelance Web',
-          type: 'widthdraw',
-          category: 'Dev',
-          amount: 6000,
-          createdAt: new Date('2022-02-12 09:00:00'),          
+          title: 'Salario',
+          type: 'deposit',
+          category: 'Trabalho',
+          amount: 4000,
+          createdAt: new Date('2022-02-05 09:00:00'),          
         },
         {
           id: 2,
           title: 'Alugel',
-          type: 'deposit',
-          category: 'Casa',
-          amount: 1100,
-          createdAt: new Date('2022-02-14 11:00:00'),          
-        },
-        {
-          id: 3,
-          title: 'Freelance Web 1',
-          type: 'deposit',
-          category: 'Dev 1',
-          amount: 2000,
-          createdAt: new Date('2022-03-12 09:00:00'),          
-        },
-        {
-          id: 4,
-          title: 'Freelance Web 2',
           type: 'widthdraw',
-          category: 'Dev 1',
-          amount: 100,
-          createdAt: new Date('2022-03-12 09:00:00'),          
+          category: 'Casa',
+          amount: 900,
+          createdAt: new Date('2022-02-08 11:00:00'),          
         }
       ]
     })
