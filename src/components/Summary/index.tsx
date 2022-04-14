@@ -77,10 +77,6 @@ export default function Summary() {
                 </strong>
             </div>
 
-
-
-
-
         </Container>
         
     )
